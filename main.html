@@ -1,0 +1,238 @@
+<!--
+Minimal CV landing page inspired by Rick Owens DA (dark, minimal, tall typography)
+Place your PDF file named `cv.pdf` in the same folder as this HTML file OR replace the href/src to your PDF path.
+
+Usage:
+1. Save this file as `index.html` (or any name).
+2. Put your `cv.pdf` next to it (or change the `data-pdf` attribute and the links to point to your PDF URL).
+3. Open the file in a browser.
+
+If you want any changes (font, layout, color accents, language, adding social links) tell me and I'll update.
+-->
+
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mon CV — Minimal</title>
+  <meta name="description" content="Page CV minimaliste inspirée Rick Owens. Contient visionneuse PDF et lien de téléchargement.">
+  <style>
+    :root{
+      --bg:#0b0b0b; /* very dark */
+      --muted:#9a9a9a;
+      --glass: rgba(255,255,255,0.03);
+      --accent:#e6e6e6;
+      --max-width:1100px;
+    }
+    /* Reset-ish */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background:var(--bg);
+      color:var(--accent);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.25;
+      letter-spacing:0.02em;
+    }
+
+    /* Page layout */
+    .wrap{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:48px 20px;
+    }
+    .card{
+      width:100%;
+      max-width:var(--max-width);
+      background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+      border-radius:8px;
+      overflow:hidden;
+      display:grid;
+      grid-template-columns: 380px 1fr;
+      gap:32px;
+      box-shadow: 0 6px 30px rgba(0,0,0,0.7);
+      border:1px solid rgba(255,255,255,0.03);
+    }
+
+    /* Left column - intro */
+    .left{
+      padding:48px 34px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.01));
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:18px;
+    }
+    .brand{
+      font-size:20px;
+      text-transform:uppercase;
+      letter-spacing:0.28em;
+      font-weight:700;
+      color:var(--accent);
+      margin:0 0 6px 0;
+    }
+    .title{
+      font-size:44px;
+      line-height:0.95;
+      margin:0;
+      font-weight:700;
+      letter-spacing:0.02em;
+    }
+    .subtitle{
+      margin:6px 0 18px 0;
+      color:var(--muted);
+      font-size:14px;
+      text-transform:uppercase;
+      letter-spacing:0.18em;
+    }
+    .desc{
+      color:var(--muted);
+      font-size:14px;
+      margin-bottom:22px;
+    }
+
+    /* Controls */
+    .controls{display:flex;flex-direction:column;gap:12px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:12px 14px;border-radius:6px;border:1px solid rgba(255,255,255,0.04);
+      background:transparent;color:var(--accent);text-decoration:none;font-weight:600;font-size:13px;
+      transition:transform .15s ease, background .15s;
+    }
+    .btn:hover{transform:translateY(-3px)}
+    .btn.primary{
+      background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.06);
+    }
+    .small{font-size:12px;color:var(--muted)}
+
+    .meta{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+    .meta a{color:var(--muted);text-decoration:none;font-size:13px}
+
+    /* Right column - viewer */
+    .right{
+      padding:18px;display:flex;flex-direction:column;gap:12px;background:linear-gradient(180deg, rgba(255,255,255,0.005), transparent);
+    }
+    .viewer-wrap{flex:1;min-height:420px;border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,0.03)}
+    iframe.pdfview{width:100%;height:100%;border:0;background:var(--glass)}
+
+    .footer-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);padding:12px 6px}
+
+    /* Responsive */
+    @media (max-width:960px){
+      .card{grid-template-columns:1fr;}
+      .left{padding:30px}
+      .title{font-size:36px}
+    }
+    @media (max-width:520px){
+      .title{font-size:28px}
+      .left{padding:22px}
+      .wrap{padding:28px 14px}
+    }
+
+    /* Small decorative vertical label, Rick Owens vibes */
+    .vertical-label{
+      writing-mode: vertical-rl; text-orientation: mixed; font-weight:700;font-size:12px;color:var(--muted);
+      position:absolute; left:14px; top:50%; transform:translateY(-50%); opacity:0.08; letter-spacing:0.18em;
+      display:none; user-select:none;
+    }
+    @media(min-width:1100px){ .vertical-label{display:block} }
+
+    /* print-friendly */
+    @media print{
+      body{background:white;color:black}
+      .card, .left, .right{box-shadow:none;border:0}
+    }
+  </style>
+</head>
+<body>
+  <div class="vertical-label">CV</div>
+  <div class="wrap">
+    <main class="card" role="main" aria-labelledby="page-title">
+      <aside class="left">
+        <div>
+          <div class="brand">FLOCHET Marick</div>
+          <div class="subtitle">Basé·e à —Poitiers •</div>
+        </div>
+
+        <div class="controls">
+          <a class="btn primary" id="open-btn" href="#" onclick="openPdf(event)">Voir le CV</a>
+          <a class="btn" id="download-btn" href="cv.pdf" download> Télécharger (PDF)</a>
+        </div>
+
+        <div class="meta">
+          <div class="small">Contact :</div>
+          <a href="mailto:email@example.com">marickf@sfr.fr</a>
+          <a href="tel:+33123456789">06 22 98 27 30</a>
+        </div>
+      </aside>
+
+      <section class="right" aria-label="Visionneuse du CV">
+        <div class="viewer-wrap" id="viewer">
+          <!-- default embed: change `src` to your pdf path if needed -->
+          <iframe class="pdfview" id="pdfFrame" src="cv.pdf" title="CV PDF"></iframe>
+        </div>
+        <div class="footer-row">
+          <div>
+            <button class="btn" onclick="adjustScale(-0.1)" aria-label="Réduire">-</button>
+            <button class="btn" onclick="fitToWidth()" aria-label="Adapter largeur">Fit</button>
+            <button class="btn" onclick="adjustScale(0.1)" aria-label="Agrandir">+</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    // PDF path customizable
+    const PDF_PATH = 'cv.pdf';
+    const frame = document.getElementById('pdfFrame');
+    const openBtn = document.getElementById('open-btn');
+    const downloadBtn = document.getElementById('download-btn');
+
+    // set links
+    function init(){
+      frame.src = PDF_PATH;
+      openBtn.href = PDF_PATH;
+      downloadBtn.href = PDF_PATH;
+    }
+    init();
+
+    // open in new tab if user clicks 'Voir le CV'
+    function openPdf(e){
+      e.preventDefault();
+      window.open(PDF_PATH, '_blank');
+    }
+
+    // Simple scale helpers (uses CSS transform on iframe's inner document if allowed)
+    let scale = 1;
+    function adjustScale(delta){
+      scale = Math.max(0.5, Math.min(3, scale + delta));
+      frame.style.transformOrigin = 'top left';
+      frame.style.transform = `scale(${scale})`;
+      // adjust height so scaled iframe still appears scrollable
+      frame.style.height = (100 / scale) + '%';
+    }
+    function fitToWidth(){
+      // reset transform
+      scale = 1;
+      frame.style.transform = '';
+      frame.style.height = '';
+    }
+
+    // Accessibility: keyboard shortcut V to open PDF in new tab
+    window.addEventListener('keydown', (e)=>{
+      if(e.key.toLowerCase()==='v'){
+        window.open(PDF_PATH, '_blank');
+      }
+    });
+  </script>
+</body>
+</html>
